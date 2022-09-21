@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,15 +21,26 @@ public class EmployeeController {
 @Autowired
 private employeeService employeeService;
 
-@PostMapping
+@PostMapping("/employees")
 public ResponseEntity<Employee> saveOrUpdate(@RequestBody Employee emp){  
 	System.out.println("PostMapping...");
 	return new ResponseEntity<Employee>(employeeService.saveOrUpdate(emp),HttpStatus.OK);
 }
-@GetMapping
+@GetMapping("/employees")
 public ResponseEntity<List<Employee>>findAll(){
 	return new ResponseEntity<List<Employee>>(employeeService.findAll(),HttpStatus.ACCEPTED); 	
 }
+@GetMapping("/employee/{id}")
+public Employee getEmployee(@PathVariable("id") int id) {
+   return employeeService.getEmployeeById(id);
+}
+
+@PutMapping("/employee/update")
+public ResponseEntity<Employee> updateEmployee(@RequestBody Employee emp) {
+	return new ResponseEntity<Employee>(employeeService.Update(emp),HttpStatus.ACCEPTED);
+}
+
+
 @DeleteMapping
 public ResponseEntity<String> deleteAll( Employee emp){
 	employeeService.deleteAll();

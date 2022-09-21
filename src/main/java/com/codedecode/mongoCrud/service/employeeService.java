@@ -14,10 +14,17 @@ private EmployeeRepository employeeRepository;
 public Employee saveOrUpdate(Employee emp) {
 	return employeeRepository.save(emp);
 }
+public Employee Update(Employee emp) {
+	return employeeRepository.save(emp);
+}
+
 public List<Employee> findAll(){
 	return employeeRepository.findAll();
 }
 
+public Employee getEmployeeById(int id) {
+	   return employeeRepository.findById(id).get();
+	}
 public void deleteAll(){
  employeeRepository.deleteAll();
 }
